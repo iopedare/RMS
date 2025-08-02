@@ -5,6 +5,7 @@ from app.models.device_role import DeviceRole
 from app.models.sync_state import SyncState
 from app.models.master_election_log import MasterElectionLog
 from app.models.sync_audit_log import SyncAuditLog
+from app.utils.validation import validate_device_registration_data
 import datetime
 
 sync_bp = Blueprint('sync', __name__)
@@ -159,12 +160,19 @@ def sync_status():
 def register_device():
     """Endpoint for device registration from frontend."""
     data = request.get_json()
-    device_id = data.get('device_id')
-    role = data.get('role')
-    if not device_id or not role:
-        return jsonify({'error': 'Missing device_id or role'}), 400
+    
+    # Use shared validation function
+    is_valid, error_msg, validated_data = validate_device_registration_data(data)
+    if not is_valid:
+        return jsonify({'error': error_msg}), 400
+    
     # Here you could add logic to store or validate the device
-    return jsonify({'status': 'registered', 'device_id': device_id, 'role': role}), 200
+    return jsonify({
+        'status': 'registered', 
+        'device_id': validated_data['device_id'], 
+        'role': validated_data['role'],
+        'priority': validated_data['priority']
+    }), 200
 
 # ===== ADVANCED SYNC ENDPOINTS =====
 

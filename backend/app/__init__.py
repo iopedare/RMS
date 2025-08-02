@@ -23,10 +23,13 @@ def create_app():
     # Import models so Flask-Migrate can detect them
     from app.models import sync_event
     from app.models import sync_audit_log
+    from app.models import user
 
     # Register blueprints (add more as needed)
     from app.routes.sync_routes import sync_bp
+    from app.routes.auth_routes import auth_bp
     app.register_blueprint(sync_bp)
+    app.register_blueprint(auth_bp)
 
     # Register SocketIO event handlers
     register_socketio_events(socketio)

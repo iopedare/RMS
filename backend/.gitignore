@@ -72,3 +72,9 @@ coverage.xml
 
 # Windows
 Thumbs.db
+
+# Data files - exclude sensitive data but keep test results
+data/logs/
+data/exports/
+data/sample_data/
+*.log
