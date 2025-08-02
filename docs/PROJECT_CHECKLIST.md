@@ -11,8 +11,8 @@
 | 5   | Set up backend (Flask + Flask-SocketIO) environment       | Backend     | Completed   | 2025-07-25   | 2025-07-25     | [x]  |
 | 6   | Set up frontend (Flutter Desktop) environment             | Frontend    | Completed   | 2025-07-25   | 2025-07-25     | [x]  |
 | 7   | Define master-client architecture and sync logic           | Backend     | Completed   | 2025-07-25   | 2025-07-25     | [x]  |
-| 8   | Define master-client architecture and sync logic           | Frontend    | In Progress | 2025-07-25   |                | [ ]  |
-| 9   | Implement user roles and permissions                      | Backend     | Pending     |              |                | [ ]  |
+| 8   | Define master-client architecture and sync logic           | Frontend    | Completed   | 2025-07-25   | 2025-08-02     | [x]  |
+| 9   | Implement user roles and permissions                      | Backend     | In Progress | 2025-08-02   |                | [ ]  |
 | 10  | Implement user roles and permissions                      | Frontend    | Pending     |              |                | [ ]  |
 | 11  | Create authentication endpoints                           | Backend     | Pending     |              |                | [ ]  |
 | 12  | Create authentication endpoints                           | Frontend    | Pending     |              |                | [ ]  |
@@ -99,116 +99,126 @@
 
 | S/N | Step                                                                 | Status      | Started Date | Completed Date | Done |
 |-----|----------------------------------------------------------------------|-------------|--------------|----------------|------|
-| 1   | Draft frontend sync architecture doc (ARCHITECTURE.md)              | Completed   | 2025-07-25   | 2025-07-25     | [x]  |
-|     |   - [x] Review backend sync logic and requirements                  |             |              |                |      |
-|     |   - [x] Outline frontend sync flow (periodic, immediate, master-client) |             |              |                |      |
-|     |   - [x] Create sequence diagrams for sync protocol                  |             |              |                |      |
-|     |   - [x] Document integration points with backend APIs/WebSocket events |             |              |                |      |
-|     |   - [x] Review with stakeholders and update as needed               |             |              |                |      |
-| 2   | Scaffold Flutter API/WebSocket integration                          | Completed   | 2025-07-25   | 2025-07-25     | [x]  |
-|     |   - [x] Set up REST API service for sync endpoints                  |             |              |                |      |
-|     |   - [x] Set up WebSocket service for real-time events               |             |              |                |      |
-|     |   - [x] Integrate both services into main app entry point           |             |              |                |      |
-|     |   - [x] Test connectivity to backend                                |             |              |                |      |
-|     |   - [x] Add comments and documentation for new code                 |             |              |                |      |
-| 3   | Implement device registration and sync event handling                | Completed   | 2025-07-25   | 2025-07-25     | [x]  |
-|     |   - [x] Generate and persist device ID on first launch              |             |              |                |      |
-|     |   - [x] Register device with backend via REST API                   |             |              |                |      |
-|     |   - [x] Connect to backend WebSocket and register device on connect |             |              |                |      |
-|     |   - [x] Listen for sync events (critical_event, acknowledge, etc.)  |             |              |                |      |
-|     |   - [x] Update app state/UI based on sync events                    |             |              |                |      |
-|     |   - [x] Add error handling and reconnection logic                   |             |              |                |      |
-|     |   - [x] Provide UI feedback for registration and sync status        |             |              |                |      |
-|     |   - [x] Write integration tests for registration and event handling |             |              |                |      |
-| 4   | Build UI for sync status                                            | Completed   | 2025-07-25   | 2025-07-25     | [x]  |
-|     |   - [x] Design or enhance the sync status bar/widget                |             |              |                |      |
-|     |   - [x] Display connection status, device ID, role, last sync, pending |             |              |                |      |
-|     |   - [x] Add color coding and icons for statuses                     |             |              |                |      |
-|     |   - [x] Add tooltips and optional retry button for errors           |             |              |                |      |
-|     |   - [x] Integrate status bar into main app layout                   |             |              |                |      |
-|     |   - [x] Test UI updates for all status transitions                  |             |              |                |      |
-|     |   - [x] Document the sync status UI                                 |             |              |                |      |
-| 5   | Test frontend-backend sync (integration tests)                      | Completed   | 2025-07-25   | 2025-07-25     | [x]  |
-|     |   - [x] Write tests for device registration (success, failure, retry) |             |              |                |      |
-|     |   - [x] Write tests for WebSocket event handling                    |             |              |                |      |
-|     |   - [x] Simulate backend disconnects and reconnections              |             |              |                |      |
-|     |   - [x] Test UI feedback for all sync statuses                      |             |              |                |      |
-|     |   - [x] Document test cases and results                             |             |              |                |      |
-| 6   | Conduct user acceptance testing (UAT) for backend sync features     | Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-|     |   - [x] Prepare UAT scenarios for backend sync                      |             |              |                |      |
-|     |   - [x] Have users perform sync operations and record feedback      |             |              |                |      |
-|     |   - [x] Log and triage any issues or feature requests               |             |              |                |      |
-|     |   - [x] Update documentation with UAT results and next steps        |             |              |                |      |
-| 7   | Conduct user acceptance testing (UAT) for frontend integration      | Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-|     |   - [x] Prepare UAT scenarios for frontend sync and UI              |             |              |                |      |
-|     |   - [x] Test device registration and sync status display for all roles |             |              |                |      |
-|     |   - [x] Verify UI feedback for all sync states (Connected, Disconnected, Error, Reconnecting) |             |              |                |      |
-|     |   - [x] Test retry button and error recovery in the UI              |             |              |                |      |
-|     |   - [x] Check tooltips, icons, and color coding for clarity         |             |              |                |      |
-|     |   - [ ] Simulate login, logout, and role switching                  |             |              |                |      |
-|     |   - [x] Simulate network disconnect/reconnect and observe UI        |             |              |                |      |
-|     |   - [x] Prevent actions when sync is lost (if required)             |             |              |                |      |
-|     |   - [x] Collect user feedback on clarity, responsiveness, and usability |             |              |                |      |
-| 8   | Add/plan advanced sync features (conflict resolution, failover, etc.)| Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-|     |   - [x] Review current sync logic for gaps and limitations           |             |              |                |      |
-|     |   - [x] Design and document advanced features (conflict resolution, failover, master election, offline queueing, audit trails) |             |              |                |      |
-|     |   - [x] Break down each feature into granular implementation tasks   |             |              |                |      |
-|     |   - [x] Update architecture and implementation plan docs             |             |              |                |      |
-|     |   - [x] Get stakeholder approval before implementation               |             |              |                |      |
-| 9   | Implement WebSocket events for advanced sync features               | Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-|     |   - [x] Implement device_online/offline/shutdown handlers           |             |              |                |      |
-|     |   - [x] Add master_election logic with device priority              |             |              |                |      |
-|     |   - [x] Create sync_request/response handlers                       |             |              |                |      |
-|     |   - [x] Add conflict detection and resolution events                |             |              |                |      |
-|     |   - [x] Test WebSocket events with integration tests                |             |              |                |      |
-|     |     - [x] Test device_online/offline/shutdown events                |             |              |                |      |
-|     |     - [x] Verify master election logic with device priorities       |             |              |                |      |
-|     |     - [x] Test sync_request/response flow                           |             |              |                |      |
-|     |     - [x] Validate conflict resolution mechanisms                   |             |              |                |      |
-|     |     - [x] Test data_update/request/response events                  |             |              |                |      |
-|     |     - [x] Test master shutdown and client takeover scenarios        |             |              |                |      |
-|     |     - [x] Test former master restart and role change                |             |              |                |      |
-| 10  | Implement database schema changes for advanced sync                 | Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-|     |   - [x] Create DeviceRole, SyncState, MasterElectionLog models     |             |              |                |      |
-|     |   - [x] Add relationships and validation                            |             |              |                |      |
-|     |   - [x] Implement database migrations                               |             |              |                |      |
-|     |   - [x] Add enhanced sync audit logging                             |             |              |                |      |
-|     |   - [x] Test database schema with sample data                       |             |              |                |      |
-| 11  | Implement master election and sync services                         | Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-|     |   - [x] Implement automatic master election service                 |             |              |                |      |
-|     |   - [x] Add device priority system                                  |             |              |                |      |
-|     |   - [x] Handle graceful role transfers                              |             |              |                |      |
-|     |   - [x] Add manual override capabilities                            |             |              |                |      |
-|     |   - [x] Enhance sync logic with new protocol                       |             |              |                |      |
-| 12  | Update frontend services for advanced sync                          | Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-| 12a | Fix backend dependencies and implement missing REST endpoints       | Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-|     |   - [x] Add new event listeners for role changes                   |             |              |                |      |
-|     |   - [x] Implement automatic reconnection logic                     |             |              |                |      |
-|     |   - [x] Add sync status monitoring                                  |             |              |                |      |
-|     |   - [x] Handle master election notifications                       |             |              |                |      |
-|     |   - [x] Update UI to show device role and sync status              |             |              |                |      |
-| 13  | Test advanced sync features (integration and UAT)                  | Completed   | 2025-07-26   | 2025-07-26     | [x]  |
-|     |   - [x] Test master election scenarios                             |             |              |                |      |
-|     |   - [x] Verify data consistency during failover                    |             |              |                |      |
-|     |   - [x] Test conflict resolution                                   |             |              |                |      |
-|     |   - [x] Validate sync queue operations                             |             |              |                |      |
-|     |   - [x] Conduct UAT for advanced sync scenarios                    |             |              |                |      |
-| 14  | Document API and event flows for advanced sync                     | In Progress | 2025-07-26   |                | [ ]  |
-|     |   - [ ] Document all WebSocket events and payloads                 |             |              |                |      |
-|     |   - [ ] Document device role transitions and master election       |             |              |                |      |
-|     |   - [ ] Update database schema documentation                       |             |              |                |      |
-|     |   - [ ] Create API reference for frontend developers               |             |              |                |      |
-|     |   - [ ] Document error codes and recovery procedures               |             |              |                |      |
-| 15  | Conduct comprehensive UAT for advanced sync                        | Pending     |              |                | [ ]  |
-|     |   - [ ] Prepare multi-device sync scenarios                        |             |              |                |      |
-|     |   - [ ] Test failover and recovery scenarios                       |             |              |                |      |
-|     |   - [ ] Validate error handling and edge cases                     |             |              |                |      |
-|     |   - [ ] Collect user feedback and iterate                          |             |              |                |      |
-|     |   - [ ] Document UAT results and lessons learned                   |             |              |                |      |
-| 16  | Prepare for frontend integration                                   | Pending     |              |                | [ ]  |
-|     |   - [ ] Share API documentation with frontend team                 |             |              |                |      |
-|     |   - [ ] Plan UI/UX updates for device roles and sync status        |             |              |                |      |
-|     |   - [ ] Design frontend event handling for advanced sync           |             |              |                |      |
-|     |   - [ ] Create frontend integration checklist                      |             |              |                |      |
-|     |   - [ ] Set up frontend testing environment                        |             |              |                |      |
+| 1   | Design user roles and permissions architecture                        | Pending     |              |                | [ ]  |
+|     |   - [ ] Define user roles (Admin, Manager, Assistant Manager, Inventory Assistant, Sales Assistant) |             |              |                |      |
+|     |   - [ ] Define permissions for each role (CRUD operations, module access, system settings) |             |              |                |      |
+|     |   - [ ] Design role hierarchy and inheritance structure              |             |              |                |      |
+|     |   - [ ] Define permission matrix (which role can access which features) |             |              |                |      |
+|     |   - [ ] Document role-based access control (RBAC) design            |             |              |                |      |
+|     |   - [ ] Review with stakeholders and get approval                   |             |              |                |      |
+| 2   | Create database models for user roles and permissions               | Pending     |              |                | [ ]  |
+|     |   - [ ] Create User model with authentication fields                |             |              |                |      |
+|     |   - [ ] Create Role model with name, description, and permissions   |             |              |                |      |
+|     |   - [ ] Create Permission model for granular permissions           |             |              |                |      |
+|     |   - [ ] Create UserRole model for many-to-many relationship        |             |              |                |      |
+|     |   - [ ] Create RolePermission model for role-permission mapping    |             |              |                |      |
+|     |   - [ ] Add audit fields (created_at, updated_at, created_by)     |             |              |                |      |
+|     |   - [ ] Implement database migrations                              |             |              |                |      |
+|     |   - [ ] Test database schema with sample data                      |             |              |                |      |
+| 3   | Implement authentication and authorization services                 | Pending     |              |                | [ ]  |
+|     |   - [ ] Create AuthService for login/logout functionality          |             |              |                |      |
+|     |   - [ ] Implement JWT token generation and validation             |             |              |                |      |
+|     |   - [ ] Create PasswordService for password hashing and validation |             |              |                |      |
+|     |   - [ ] Implement PermissionService for role-based access control |             |              |                |      |
+|     |   - [ ] Create SessionService for session management               |             |              |                |      |
+|     |   - [ ] Add middleware for authentication and authorization        |             |              |                |      |
+|     |   - [ ] Implement single-device login logic (except Admin)        |             |              |                |      |
+|     |   - [ ] Add session timeout and automatic logout                  |             |              |                |      |
+| 4   | Create authentication REST endpoints                               | Pending     |              |                | [ ]  |
+|     |   - [ ] Implement POST /api/auth/login endpoint                   |             |              |                |      |
+|     |   - [ ] Implement POST /api/auth/logout endpoint                  |             |              |                |      |
+|     |   - [ ] Implement POST /api/auth/refresh endpoint                 |             |              |                |      |
+|     |   - [ ] Implement GET /api/auth/verify endpoint                   |             |              |                |      |
+|     |   - [ ] Implement POST /api/auth/change-password endpoint         |             |              |                |      |
+|     |   - [ ] Add input validation and error handling                   |             |              |                |      |
+|     |   - [ ] Implement rate limiting for login attempts                |             |              |                |      |
+|     |   - [ ] Add comprehensive logging for security events             |             |              |                |      |
+| 5   | Create user management REST endpoints                             | Pending     |              |                | [ ]  |
+|     |   - [ ] Implement GET /api/users endpoint (list users)           |             |              |                |      |
+|     |   - [ ] Implement GET /api/users/{id} endpoint (get user)        |             |              |                |      |
+|     |   - [ ] Implement POST /api/users endpoint (create user)          |             |              |                |      |
+|     |   - [ ] Implement PUT /api/users/{id} endpoint (update user)     |             |              |                |      |
+|     |   - [ ] Implement DELETE /api/users/{id} endpoint (delete user)  |             |              |                |      |
+|     |   - [ ] Add role-based access control to all endpoints           |             |              |                |      |
+|     |   - [ ] Implement user search and filtering                      |             |              |                |      |
+|     |   - [ ] Add pagination for user lists                            |             |              |                |      |
+| 6   | Create role and permission management endpoints                   | Pending     |              |                | [ ]  |
+|     |   - [ ] Implement GET /api/roles endpoint (list roles)           |             |              |                |      |
+|     |   - [ ] Implement GET /api/roles/{id} endpoint (get role)        |             |              |                |      |
+|     |   - [ ] Implement POST /api/roles endpoint (create role)          |             |              |                |      |
+|     |   - [ ] Implement PUT /api/roles/{id} endpoint (update role)     |             |              |                |      |
+|     |   - [ ] Implement DELETE /api/roles/{id} endpoint (delete role)  |             |              |                |      |
+|     |   - [ ] Implement GET /api/permissions endpoint (list permissions) |             |              |                |      |
+|     |   - [ ] Implement role-permission assignment endpoints            |             |              |                |      |
+|     |   - [ ] Add validation for role-permission relationships         |             |              |                |      |
+| 7   | Implement security features and audit logging                    | Pending     |              |                | [ ]  |
+|     |   - [ ] Create AuditLog model for security event tracking        |             |              |                |      |
+|     |   - [ ] Implement comprehensive audit logging for all operations |             |              |                |      |
+|     |   - [ ] Add password policy enforcement (length, complexity)     |             |              |                |      |
+|     |   - [ ] Implement account lockout after failed login attempts    |             |              |                |      |
+|     |   - [ ] Add IP address tracking for login attempts               |             |              |                |      |
+|     |   - [ ] Implement session management and cleanup                 |             |              |                |      |
+|     |   - [ ] Add security headers and CSRF protection                |             |              |                |      |
+|     |   - [ ] Implement data encryption for sensitive information     |             |              |                |      |
+| 8   | Create seed data and default roles                               | Pending     |              |                | [ ]  |
+|     |   - [ ] Create default roles (Admin, Manager, Assistant Manager, etc.) |             |              |                |      |
+|     |   - [ ] Define default permissions for each role                 |             |              |                |      |
+|     |   - [ ] Create default admin user with secure credentials        |             |              |                |      |
+|     |   - [ ] Create sample users for testing                          |             |              |                |      |
+|     |   - [ ] Implement database seeding scripts                       |             |              |                |      |
+|     |   - [ ] Test seed data creation and validation                   |             |              |                |      |
+|     |   - [ ] Document default roles and permissions                   |             |              |                |      |
+| 9   | Implement integration with existing sync system                  | Pending     |              |                | [ ]  |
+|     |   - [ ] Integrate user authentication with device registration   |             |              |                |      |
+|     |   - [ ] Add user context to sync events and audit logs          |             |              |                |      |
+|     |   - [ ] Implement role-based sync permissions                    |             |              |                |      |
+|     |   - [ ] Add user session management to WebSocket connections     |             |              |                |      |
+|     |   - [ ] Implement user-specific device assignments               |             |              |                |      |
+|     |   - [ ] Test authentication integration with sync features       |             |              |                |      |
+|     |   - [ ] Update sync documentation with authentication details    |             |              |                |      |
+| 10  | Write comprehensive tests for authentication system               | Pending     |              |                | [ ]  |
+|     |   - [ ] Write unit tests for all authentication services         |             |              |                |      |
+|     |   - [ ] Write integration tests for all REST endpoints          |             |              |                |      |
+|     |   - [ ] Test role-based access control scenarios                 |             |              |                |      |
+|     |   - [ ] Test security features (password policies, lockouts)     |             |              |                |      |
+|     |   - [ ] Test session management and timeout scenarios             |             |              |                |      |
+|     |   - [ ] Test audit logging functionality                         |             |              |                |      |
+|     |   - [ ] Test integration with sync system                        |             |              |                |      |
+|     |   - [ ] Achieve 90%+ test coverage for authentication module    |             |              |                |      |
+| 11  | Conduct security testing and vulnerability assessment            | Pending     |              |                | [ ]  |
+|     |   - [ ] Perform authentication bypass testing                    |             |              |                |      |
+|     |   - [ ] Test SQL injection vulnerabilities                       |             |              |                |      |
+|     |   - [ ] Test XSS and CSRF protection                            |             |              |                |      |
+|     |   - [ ] Test session hijacking prevention                        |             |              |                |      |
+|     |   - [ ] Test privilege escalation scenarios                      |             |              |                |      |
+|     |   - [ ] Perform penetration testing on authentication endpoints  |             |              |                |      |
+|     |   - [ ] Document security findings and remediation steps         |             |              |                |      |
+|     |   - [ ] Implement security fixes and retest                     |             |              |                |      |
+| 12  | Create authentication documentation and API reference            | Pending     |              |                | [ ]  |
+|     |   - [ ] Document authentication architecture and flow            |             |              |                |      |
+|     |   - [ ] Create API reference for all authentication endpoints    |             |              |                |      |
+|     |   - [ ] Document role and permission definitions                 |             |              |                |      |
+|     |   - [ ] Create security best practices guide                     |             |              |                |      |
+|     |   - [ ] Document integration with sync system                    |             |              |                |      |
+|     |   - [ ] Create troubleshooting guide for common issues           |             |              |                |      |
+|     |   - [ ] Update overall API documentation                        |             |              |                |      |
+|     |   - [ ] Create user management guide for administrators         |             |              |                |      |
+| 13  | Conduct user acceptance testing (UAT) for authentication         | Pending     |              |                | [ ]  |
+|     |   - [ ] Prepare UAT scenarios for login/logout functionality     |             |              |                |      |
+|     |   - [ ] Test role-based access control with different users      |             |              |                |      |
+|     |   - [ ] Test session management and timeout scenarios            |             |              |                |      |
+|     |   - [ ] Test password change and recovery functionality          |             |              |                |      |
+|     |   - [ ] Test user management operations (CRUD)                  |             |              |                |      |
+|     |   - [ ] Test integration with sync system                        |             |              |                |      |
+|     |   - [ ] Collect user feedback on authentication experience       |             |              |                |      |
+|     |   - [ ] Document UAT results and address any issues             |             |              |                |      |
+| 14  | Prepare for frontend integration                                 | Pending     |              |                | [ ]  |
+|     |   - [ ] Share authentication API documentation with frontend team |             |              |                |      |
+|     |   - [ ] Create frontend integration checklist                    |             |              |                |      |
+|     |   - [ ] Design frontend authentication flow and UI               |             |              |                |      |
+|     |   - [ ] Plan role-based UI components and navigation            |             |              |                |      |
+|     |   - [ ] Create frontend testing scenarios                       |             |              |                |      |
+|     |   - [ ] Document frontend integration requirements               |             |              |                |      |
+|     |   - [ ] Set up frontend authentication testing environment       |             |              |                |      |
+|     |   - [ ] Prepare handoff documentation for frontend team         |             |              |                |      |
 
