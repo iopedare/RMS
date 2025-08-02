@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 from app.models import DeviceRole, SyncState, MasterElectionLog, SyncAuditLog
 from app.extensions import db
+from app.utils.validation import validate_device_registration_data, validate_sync_event_data
 
 # SocketIO instance will be initialized in app/__init__.py
 
@@ -35,14 +36,16 @@ def register_socketio_events(socketio: SocketIO):
     @socketio.on('device_online')
     def handle_device_online(data):
         """Handle device coming back online."""
-        device_id = data.get('device_id')
-        role = data.get('role', 'client')
-        priority = data.get('priority', 0)
-        now = datetime.now()
-        
-        if not device_id:
-            emit('error', {'error': 'Missing device_id'})
+        # Validate input data
+        is_valid, error_msg, validated_data = validate_device_registration_data(data)
+        if not is_valid:
+            emit('error', {'error': error_msg})
             return
+        
+        device_id = validated_data['device_id']
+        role = validated_data['role']
+        priority = validated_data['priority']
+        now = datetime.now()
         
         # Upsert DeviceRole
         device = DeviceRole.get_device_by_id(device_id)
@@ -402,13 +405,15 @@ def register_socketio_events(socketio: SocketIO):
     @socketio.on('register_device')
     def handle_register_device(data):
         """Register a device and announce its role (master/client)."""
-        device_id = data.get('device_id')
-        role = data.get('role', 'client')
-        priority = data.get('priority', 0)
-        
-        if not device_id:
-            emit('error', {'error': 'Missing device_id'})
+        # Validate input data
+        is_valid, error_msg, validated_data = validate_device_registration_data(data)
+        if not is_valid:
+            emit('error', {'error': error_msg})
             return
+        
+        device_id = validated_data['device_id']
+        role = validated_data['role']
+        priority = validated_data['priority']
         
         connected_devices[device_id] = {
             'sid': request.sid,
