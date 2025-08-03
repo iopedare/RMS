@@ -1,50 +1,53 @@
-from app.extensions import db
-from datetime import datetime
+from flask import Flask
+import os
+from app.extensions import db, migrate, socketio
+from app.services.sync_manager import SyncManager
+from app.services.conflict_resolver import ConflictResolver
+from app.routes.socketio_events import register_socketio_events
+from app.middleware.auth_middleware import setup_auth_middleware
 
-class Role(db.Model):
-    """User roles for the system"""
-    __tablename__ = 'roles'
+def create_app(config=None):
+    """
+    Flask application factory.
+    Sets up Flask, SQLAlchemy, Flask-Migrate, and registers blueprints.
+    """
+    app = Flask(__name__)
     
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
-    description = db.Column(db.Text)
-    permissions = db.Column(db.JSON)  # Store permissions as JSON
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
-    # Relationship
-    users = db.relationship('User', backref='role', lazy=True)
-    
-    def __repr__(self):
-        return f'<Role {self.name}>'
+    if config:
+        app.config.update(config)
+    else:
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        # Use instance/app.db as the database file
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, '../instance/app.db')
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-class User(db.Model):
-    """User model for authentication"""
-    __tablename__ = 'users'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=True)
-    first_name = db.Column(db.String(50))
-    last_name = db.Column(db.String(50))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
-    device_id = db.Column(db.String(100), unique=True, nullable=True)
-    is_active = db.Column(db.Boolean, default=True)
-    last_login = db.Column(db.DateTime)
-    last_logout = db.Column(db.DateTime)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
-    def __repr__(self):
-        return f'<User {self.username}>'
-    
-    @property
-    def full_name(self):
-        return f"{self.first_name} {self.last_name}".strip()
-    
-    def has_permission(self, permission):
-        """Check if user has a specific permission"""
-        if not self.role or not self.role.permissions:
-            return False
-        return permission in self.role.permissions 
+    db.init_app(app)
+    migrate.init_app(app, db)
+    socketio.init_app(app)
+
+    # Import models so Flask-Migrate can detect them
+    from app.models import sync_event
+    from app.models import sync_audit_log
+    # Import authentication models
+    from app.models import User, Role, Permission, UserRole, RolePermission, AuditLog
+
+    # Register blueprints (add more as needed)
+    from app.routes.sync_routes import sync_bp
+    from app.routes.auth import auth_bp
+    from app.routes.users import users_bp
+    app.register_blueprint(sync_bp)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(users_bp)
+
+    # Register SocketIO event handlers
+    register_socketio_events(socketio)
+
+    # Initialize core services (can be injected as needed)
+    app.sync_manager = SyncManager()
+    app.conflict_resolver = ConflictResolver()
+
+    # Setup auth middleware
+    from app.database import get_db_session
+    setup_auth_middleware(app, get_db_session)
+
+    return app

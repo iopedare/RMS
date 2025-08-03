@@ -46,6 +46,214 @@ Authorization: Bearer <token>
 
 ---
 
+## 👤 User Management
+
+### List Users
+```http
+GET /api/users?page=1&per_page=20&search=admin&role=Admin&status=active&sort_by=created_at&sort_order=desc
+Authorization: Bearer <token>
+```
+
+**Query Parameters:**
+- `page` (int): Page number (default: 1)
+- `per_page` (int): Items per page (default: 20, max: 100)
+- `search` (str): Search term for username, email, or name
+- `role` (str): Filter by role name
+- `status` (str): Filter by status (active, inactive, locked)
+- `sort_by` (str): Sort field (username, email, created_at, last_login)
+- `sort_order` (str): Sort order (asc, desc)
+
+**Response:**
+```json
+{
+  "success": true,
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@example.com",
+      "first_name": "Admin",
+      "last_name": "User",
+      "is_active": true,
+      "is_locked": false,
+      "roles": ["Admin"],
+      "created_at": "2024-12-19T10:00:00Z",
+      "last_login": "2024-12-19T15:30:00Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "per_page": 20,
+    "total": 50,
+    "pages": 3,
+    "has_next": true,
+    "has_prev": false
+  }
+}
+```
+
+### Get User
+```http
+GET /api/users/{id}
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "user": {
+    "id": 1,
+    "username": "admin",
+    "email": "admin@example.com",
+    "first_name": "Admin",
+    "last_name": "User",
+    "phone": "+1234567890",
+    "is_active": true,
+    "is_locked": false,
+    "failed_login_attempts": 0,
+    "locked_until": null,
+    "roles": [
+      {
+        "id": 1,
+        "name": "Admin",
+        "description": "System Administrator",
+        "is_primary": true
+      }
+    ],
+    "permissions": ["users:create", "users:read", "users:update", "users:delete"],
+    "created_at": "2024-12-19T10:00:00Z",
+    "updated_at": "2024-12-19T15:30:00Z",
+    "last_login": "2024-12-19T15:30:00Z",
+    "password_changed_at": "2024-12-19T10:00:00Z"
+  }
+}
+```
+
+### Create User
+```http
+POST /api/users
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "username": "manager",
+  "email": "manager@example.com",
+  "password": "Manager123!",
+  "first_name": "Store",
+  "last_name": "Manager",
+  "phone": "+1234567890",
+  "roles": [1, 2],
+  "is_active": true
+}
+```
+
+**Password Requirements:**
+- Minimum 8 characters
+- At least one uppercase letter
+- At least one lowercase letter
+- At least one number
+- At least one special character
+
+**Response:**
+```json
+{
+  "success": true,
+  "user": {
+    "id": 2,
+    "username": "manager",
+    "email": "manager@example.com",
+    "first_name": "Store",
+    "last_name": "Manager",
+    "is_active": true,
+    "roles": ["Manager"],
+    "created_at": "2024-12-19T16:00:00Z"
+  }
+}
+```
+
+### Update User
+```http
+PUT /api/users/{id}
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "email": "updated@example.com",
+  "first_name": "Updated",
+  "last_name": "Manager",
+  "phone": "+9876543210",
+  "is_active": true
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "user": {
+    "id": 2,
+    "username": "manager",
+    "email": "updated@example.com",
+    "first_name": "Updated",
+    "last_name": "Manager",
+    "phone": "+9876543210",
+    "is_active": true,
+    "updated_at": "2024-12-19T16:30:00Z"
+  }
+}
+```
+
+### Delete User
+```http
+DELETE /api/users/{id}
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "User deleted successfully"
+}
+```
+
+**Error Responses:**
+
+**400 Bad Request - Password Validation:**
+```json
+{
+  "success": false,
+  "error": "Password must be at least 8 characters long"
+}
+```
+
+**409 Conflict - Duplicate Username/Email:**
+```json
+{
+  "success": false,
+  "error": "Username or email already exists"
+}
+```
+
+**401 Unauthorized:**
+```json
+{
+  "success": false,
+  "error": "Authorization token required"
+}
+```
+
+**403 Forbidden:**
+```json
+{
+  "success": false,
+  "error": "Insufficient permissions"
+}
+```
+
+---
+
 ## 🔄 Sync Endpoints
 
 ### Device Registration

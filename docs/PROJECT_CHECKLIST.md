@@ -14,7 +14,7 @@
 | 8   | Define master-client architecture and sync logic           | Frontend    | Completed   | 2025-07-25   | 2025-08-02     | [x]  |
 | 9   | Implement user roles and permissions                      | Backend     | In Progress | 2025-08-02   |                | [ ]  |
 | 10  | Implement user roles and permissions                      | Frontend    | Pending     |              |                | [ ]  |
-| 11  | Create authentication endpoints                           | Backend     | Pending     |              |                | [ ]  |
+| 11  | Create authentication endpoints                           | Backend     | Completed   | 2025-08-03   | 2025-08-03     | [x]  |
 | 12  | Create authentication endpoints                           | Frontend    | Pending     |              |                | [ ]  |
 | 13  | Enforce single-device login logic                         | Backend     | Pending     |              |                | [ ]  |
 | 14  | Enforce single-device login logic                         | Frontend    | Pending     |              |                | [ ]  |
@@ -99,49 +99,50 @@
 
 | S/N | Step                                                                 | Status      | Started Date | Completed Date | Done |
 |-----|----------------------------------------------------------------------|-------------|--------------|----------------|------|
-| 1   | Design user roles and permissions architecture                        | Pending     |              |                | [ ]  |
-|     |   - [ ] Define user roles (Admin, Manager, Assistant Manager, Inventory Assistant, Sales Assistant) |             |              |                |      |
-|     |   - [ ] Define permissions for each role (CRUD operations, module access, system settings) |             |              |                |      |
-|     |   - [ ] Design role hierarchy and inheritance structure              |             |              |                |      |
-|     |   - [ ] Define permission matrix (which role can access which features) |             |              |                |      |
-|     |   - [ ] Document role-based access control (RBAC) design            |             |              |                |      |
-|     |   - [ ] Review with stakeholders and get approval                   |             |              |                |      |
-| 2   | Create database models for user roles and permissions               | Pending     |              |                | [ ]  |
-|     |   - [ ] Create User model with authentication fields                |             |              |                |      |
-|     |   - [ ] Create Role model with name, description, and permissions   |             |              |                |      |
-|     |   - [ ] Create Permission model for granular permissions           |             |              |                |      |
-|     |   - [ ] Create UserRole model for many-to-many relationship        |             |              |                |      |
-|     |   - [ ] Create RolePermission model for role-permission mapping    |             |              |                |      |
-|     |   - [ ] Add audit fields (created_at, updated_at, created_by)     |             |              |                |      |
-|     |   - [ ] Implement database migrations                              |             |              |                |      |
-|     |   - [ ] Test database schema with sample data                      |             |              |                |      |
-| 3   | Implement authentication and authorization services                 | Pending     |              |                | [ ]  |
-|     |   - [ ] Create AuthService for login/logout functionality          |             |              |                |      |
-|     |   - [ ] Implement JWT token generation and validation             |             |              |                |      |
-|     |   - [ ] Create PasswordService for password hashing and validation |             |              |                |      |
-|     |   - [ ] Implement PermissionService for role-based access control |             |              |                |      |
-|     |   - [ ] Create SessionService for session management               |             |              |                |      |
-|     |   - [ ] Add middleware for authentication and authorization        |             |              |                |      |
-|     |   - [ ] Implement single-device login logic (except Admin)        |             |              |                |      |
-|     |   - [ ] Add session timeout and automatic logout                  |             |              |                |      |
-| 4   | Create authentication REST endpoints                               | Pending     |              |                | [ ]  |
-|     |   - [ ] Implement POST /api/auth/login endpoint                   |             |              |                |      |
-|     |   - [ ] Implement POST /api/auth/logout endpoint                  |             |              |                |      |
-|     |   - [ ] Implement POST /api/auth/refresh endpoint                 |             |              |                |      |
-|     |   - [ ] Implement GET /api/auth/verify endpoint                   |             |              |                |      |
-|     |   - [ ] Implement POST /api/auth/change-password endpoint         |             |              |                |      |
-|     |   - [ ] Add input validation and error handling                   |             |              |                |      |
-|     |   - [ ] Implement rate limiting for login attempts                |             |              |                |      |
-|     |   - [ ] Add comprehensive logging for security events             |             |              |                |      |
-| 5   | Create user management REST endpoints                             | Pending     |              |                | [ ]  |
-|     |   - [ ] Implement GET /api/users endpoint (list users)           |             |              |                |      |
-|     |   - [ ] Implement GET /api/users/{id} endpoint (get user)        |             |              |                |      |
-|     |   - [ ] Implement POST /api/users endpoint (create user)          |             |              |                |      |
-|     |   - [ ] Implement PUT /api/users/{id} endpoint (update user)     |             |              |                |      |
-|     |   - [ ] Implement DELETE /api/users/{id} endpoint (delete user)  |             |              |                |      |
-|     |   - [ ] Add role-based access control to all endpoints           |             |              |                |      |
-|     |   - [ ] Implement user search and filtering                      |             |              |                |      |
-|     |   - [ ] Add pagination for user lists                            |             |              |                |      |
+| 1   | Design user roles and permissions architecture                        | Completed   | 2025-08-02   | 2025-08-02     | [x]  |
+|     |   - [x] Define user roles (Admin, Manager, Assistant Manager, Inventory Assistant, Sales Assistant) |             |              |                |      |
+|     |   - [x] Define permissions for each role (CRUD operations, module access, system settings) |             |              |                |      |
+|     |   - [x] Design role hierarchy and inheritance structure              |             |              |                |      |
+|     |   - [x] Define permission matrix (which role can access which features) |             |              |                |      |
+|     |   - [x] Document role-based access control (RBAC) design            |             |              |                |      |
+|     |   - [x] Review with stakeholders and get approval                   |             |              |                |      |
+| 2   | Create database models for user roles and permissions               | Completed   | 2025-08-02   | 2025-08-02     | [x]  |
+|     |   - [x] Create User model with authentication fields                |             |              |                |      |
+|     |   - [x] Create Role model with name, description, and permissions   |             |              |                |      |
+|     |   - [x] Create Permission model for granular permissions           |             |              |                |      |
+|     |   - [x] Create UserRole model for many-to-many relationship        |             |              |                |      |
+|     |   - [x] Create RolePermission model for role-permission mapping    |             |              |                |      |
+|     |   - [x] Add audit fields (created_at, updated_at, created_by)     |             |              |                |      |
+|     |   - [x] Implement database migrations                              |             |              |                |      |
+|     |   - [x] Test database schema with sample data                      |             |              |                |      |
+| 3   | Implement authentication and authorization services                 | Completed   | 2024-12-19   | 2024-12-19     | [x]  |
+|     |   - [x] Create AuthService for login/logout functionality          |             |              |                |      |
+|     |   - [x] Implement JWT token generation and validation             |             |              |                |      |
+|     |   - [x] Create PasswordService for password hashing and validation |             |              |                |      |
+|     |   - [x] Implement PermissionService for role-based access control |             |              |                |      |
+|     |   - [x] Create SessionService for session management               |             |              |                |      |
+|     |   - [x] Add middleware for authentication and authorization        |             |              |                |      |
+|     |   - [x] Implement single-device login logic (except Admin)        |             |              |                |      |
+|     |   - [x] Add session timeout and automatic logout                  |             |              |                |      |
+|     |   - [x] **Design network-based authentication flow (one admin per network)** |             |              |                |      |
+|     |   - [x] **Implement auto-discovery for subsequent devices**      |             |              |                |      |
+|     |   - [x] **Ensure no dummy login - only first device registration required** |             |              |                |      |
+| 4   | Create authentication REST endpoints                               | Completed   | 2025-08-03   | 2025-08-03     | [x]  |
+| 5   | Create user management REST endpoints                             | Completed   | 2025-01-27   | 2025-08-03     | [x]  |
+|     |   - [x] Implement GET /api/users endpoint (list users)           |             |              |                |      |
+|     |   - [x] Implement GET /api/users/{id} endpoint (get user)        |             |              |                |      |
+|     |   - [x] Implement POST /api/users endpoint (create user)          |             |              |                |      |
+|     |   - [x] Implement PUT /api/users/{id} endpoint (update user)     |             |              |                |      |
+|     - [x] Implement DELETE /api/users/{id} endpoint (delete user)  |             |              |                |      |
+|     - [x] Add role-based access control to all endpoints           |             |              |                |      |
+|     - [x] Implement user search and filtering                      |             |              |                |      |
+|     - [x] Add pagination for user lists                            |             |              |                |      |
+|     - [x] Add input validation and error handling                   |             |              |                |      |
+|     - [x] Implement comprehensive audit logging                     |             |              |                |      |
+|     - [x] Add password validation with strong requirements          |             |              |                |      |
+|     - [x] Fix session management and authentication issues          |             |              |                |      |
+|     - [x] Ensure username uniqueness enforcement                    |             |              |                |      |
+|     - [x] Create comprehensive test suite for all endpoints        |             |              |                |      |
 | 6   | Create role and permission management endpoints                   | Pending     |              |                | [ ]  |
 |     |   - [ ] Implement GET /api/roles endpoint (list roles)           |             |              |                |      |
 |     |   - [ ] Implement GET /api/roles/{id} endpoint (get role)        |             |              |                |      |
