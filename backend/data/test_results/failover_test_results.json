@@ -1,0 +1,59 @@
+{
+  "timestamp": "2025-07-31T19:06:25.675049",
+  "results": [
+    {
+      "timestamp": "2025-07-31 19:04:27",
+      "scenario": "Master Election",
+      "status": "FAILED",
+      "details": "Master election timeout"
+    },
+    {
+      "timestamp": "2025-07-31 19:04:27",
+      "scenario": "Master Device Graceful Shutdown",
+      "status": "FAILED",
+      "details": "Test failed"
+    },
+    {
+      "timestamp": "2025-07-31 19:05:06",
+      "scenario": "Crash Recovery Setup",
+      "status": "FAILED",
+      "details": "Initial master election timeout"
+    },
+    {
+      "timestamp": "2025-07-31 19:05:06",
+      "scenario": "Master Device Crash Recovery",
+      "status": "FAILED",
+      "details": "Test failed"
+    },
+    {
+      "timestamp": "2025-07-31 19:05:44",
+      "scenario": "Network Partition Setup",
+      "status": "FAILED",
+      "details": "Initial sync timeout"
+    },
+    {
+      "timestamp": "2025-07-31 19:05:44",
+      "scenario": "Network Partition Recovery",
+      "status": "FAILED",
+      "details": "Test failed"
+    },
+    {
+      "timestamp": "2025-07-31 19:06:25",
+      "scenario": "Multiple Failures Setup",
+      "status": "FAILED",
+      "details": "Initial sync timeout"
+    },
+    {
+      "timestamp": "2025-07-31 19:06:25",
+      "scenario": "Multiple Device Failures",
+      "status": "FAILED",
+      "details": "Test failed"
+    }
+  ],
+  "summary": {
+    "total_tests": 8,
+    "passed": 0,
+    "failed": 8,
+    "duration": 158.55611896514893
+  }
+}
