@@ -12,7 +12,7 @@ This document provides a detailed, step-by-step plan for implementing the Retail
 - Set up local SQLite database schema (see PRD for tables)
 
 ## 2. User Roles & Authentication
-- ✅ **Task 9 Started**: Implement user roles and permissions (Backend) - In Progress
+- ✅ **Task 9 Step 3 Completed**: Implement authentication and authorization services (Backend) - Completed
 - Create authentication endpoints (login, logout, session management)
 - Enforce single-device login (except Admin override)
 - Device ID logic and failover handling

@@ -58,9 +58,30 @@ This is the backend service for the Retail Management System, built with Flask a
 
 ## Progress
 - [x] SyncEvent model and database integration complete (CRUD tested)
+- [x] Authentication system with JWT tokens and role-based access control
+- [x] User management REST endpoints (5 endpoints) with comprehensive testing
+- [x] Session management and security features
+- [x] Comprehensive audit logging and error handling
+- [ ] Role and permission management endpoints (Step 6 - Next)
 - [ ] REST and WebSocket API endpoints for sync (in progress)
 
-## Testing the SyncEvent Model
+## Testing
+
+### User Management Endpoints
+All user management endpoints are fully tested with 30 test cases:
+
+```bash
+pytest tests/test_user_endpoints.py -v
+```
+
+### Authentication Endpoints
+All authentication endpoints are fully tested with 20 test cases:
+
+```bash
+pytest tests/test_auth_endpoints.py -v
+```
+
+### SyncEvent Model
 You can run the test script from any directory:
 
 ```bash
@@ -71,6 +92,13 @@ or
 
 ```bash
 python -m tests.test_sync_event_model
+```
+
+### All Tests
+Run all tests to verify system integrity:
+
+```bash
+pytest tests/ -v
 ```
 
 ---
