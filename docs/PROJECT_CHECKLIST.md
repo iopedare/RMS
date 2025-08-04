@@ -144,7 +144,7 @@
 |     - [x] Ensure username uniqueness enforcement                    |             |              |                |      |
 |     - [x] Create comprehensive test suite for all endpoints        |             |              |                |      |
 | 6   | Create role and permission management endpoints                   | Pending     |              |                | [ ]  |
-|     |   - [ ] Implement GET /api/roles endpoint (list roles)           |             |              |                |      |
+|     |   - [x] Implement GET /api/roles endpoint (list roles)           |             |              |                |      |
 |     |   - [ ] Implement GET /api/roles/{id} endpoint (get role)        |             |              |                |      |
 |     |   - [ ] Implement POST /api/roles endpoint (create role)          |             |              |                |      |
 |     |   - [ ] Implement PUT /api/roles/{id} endpoint (update role)     |             |              |                |      |

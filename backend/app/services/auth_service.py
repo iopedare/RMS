@@ -314,7 +314,7 @@ class AuthService:
                 return False, message
             
             # Change password
-            user.change_password(new_password)
+            user.set_password(new_password)
             self.db.commit()
             
             # Log password change

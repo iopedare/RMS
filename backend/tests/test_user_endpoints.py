@@ -212,7 +212,49 @@ class TestUserEndpoints:
     
     def test_list_users_with_status_filter(self, client, auth_token, db_session):
         """Test user listing with status filter."""
+        # Ensure we have active users in the database
+        from app.models import User, Role, UserRole
+        
+        # Create a test user if not exists
+        existing_user = db_session.query(User).filter(User.username == 'manager').first()
+        if not existing_user:
+            # Create manager role if not exists
+            manager_role = db_session.query(Role).filter(Role.name == 'Manager').first()
+            if not manager_role:
+                manager_role = Role(
+                    name='Manager',
+                    description='Store Manager',
+                    priority=2,
+                    created_by=1
+                )
+                db_session.add(manager_role)
+                db_session.flush()
+            
+            # Create manager user
+            manager_user = User(
+                username='manager',
+                email='manager@example.com',
+                password='Manager123!',
+                first_name='Store',
+                last_name='Manager',
+                is_active=True,
+                created_by=1
+            )
+            db_session.add(manager_user)
+            db_session.flush()
+            
+            # Assign manager role
+            user_role = UserRole(
+                user_id=manager_user.id,
+                role_id=manager_role.id,
+                is_primary=True,
+                created_by=1
+            )
+            db_session.add(user_role)
+            db_session.commit()
+        
         headers = {'Authorization': f'Bearer {auth_token}'}
+        
         response = client.get('/api/users?status=active', headers=headers)
         
         assert response.status_code == 200

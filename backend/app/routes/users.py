@@ -10,7 +10,8 @@ from flask import Blueprint, request, jsonify, g
 from functools import wraps
 from typing import Dict, Any, Optional, Tuple, List
 import logging
-from datetime import datetime, timedelta
+import datetime
+from datetime import datetime as dt, timedelta
 from sqlalchemy import and_, or_, desc, asc
 from sqlalchemy.orm import joinedload
 
@@ -186,11 +187,13 @@ def list_users():
         # Apply status filter
         if status_filter:
             if status_filter == 'active':
-                query = query.filter(User.is_active == True, User.is_locked == False)
+                # Use locked_until column instead of is_locked property
+                query = query.filter(User.is_active == True, (User.locked_until.is_(None) | (User.locked_until < dt.utcnow())))
             elif status_filter == 'inactive':
                 query = query.filter(User.is_active == False)
             elif status_filter == 'locked':
-                query = query.filter(User.is_locked == True)
+                # Use locked_until column instead of is_locked property
+                query = query.filter(User.locked_until.isnot(None), User.locked_until > dt.utcnow())
         
         # Apply sorting
         sort_field = getattr(User, sort_by)
@@ -591,7 +594,7 @@ def update_user(user_id: int):
             updated_fields.append('is_active')
         
         # Update audit fields
-        user.updated_at = datetime.utcnow()
+        user.updated_at = dt.utcnow()
         user.updated_by = g.get('user_id')
         
         db_session.commit()
@@ -668,7 +671,7 @@ def delete_user(user_id: int):
         
         # Soft delete user
         user.is_active = False
-        user.updated_at = datetime.utcnow()
+        user.updated_at = dt.utcnow()
         user.updated_by = current_user_id
         
         # Invalidate user sessions
