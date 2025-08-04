@@ -12,7 +12,6 @@ from datetime import datetime, timedelta
 from unittest.mock import patch, MagicMock
 
 from app import create_app
-from app.database import get_db_session
 from app.models import User, Role, UserRole
 from app.services import AuthService, SessionService
 
@@ -46,23 +45,23 @@ class TestAuthEndpoints:
     
     def _create_test_data(self):
         """Create test data for authentication tests."""
-        db_session = get_db_session()
+        from app.extensions import db
         
         # Check if Admin role exists, create if not
-        admin_role = db_session.query(Role).filter(Role.name == "Admin").first()
+        admin_role = db.session.query(Role).filter(Role.name == "Admin").first()
         if not admin_role:
             admin_role = Role(name="Admin", description="Admin role")
-            db_session.add(admin_role)
-            db_session.commit()
-            db_session.refresh(admin_role)
+            db.session.add(admin_role)
+            db.session.commit()
+            db.session.refresh(admin_role)
         
         # Check if Manager role exists, create if not
-        manager_role = db_session.query(Role).filter(Role.name == "Manager").first()
+        manager_role = db.session.query(Role).filter(Role.name == "Manager").first()
         if not manager_role:
             manager_role = Role(name="Manager", description="Manager role")
-            db_session.add(manager_role)
-            db_session.commit()
-            db_session.refresh(manager_role)
+            db.session.add(manager_role)
+            db.session.commit()
+            db.session.refresh(manager_role)
         
         # Note: We don't create admin users by default to allow registration tests
         # Admin users will be created by individual tests as needed
